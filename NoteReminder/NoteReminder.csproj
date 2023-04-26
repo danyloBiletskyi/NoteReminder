@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="add_512px.png" />
+    <None Remove="Plus_480px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="add_512px.png" />
+    <Resource Include="Plus_480px.png" />
+  </ItemGroup>
+
+</Project>
