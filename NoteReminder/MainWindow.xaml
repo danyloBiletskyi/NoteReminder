@@ -60,6 +60,18 @@
                             FontSize="15"/>
                     </StackPanel>
                 </Border>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Width="30" BorderThickness="0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/delete_trash_512px.png"/>
+                        </Button.Background>
+                    </Button>
+                    <Button Width="30" BorderThickness="0">
+                        <Button.Background>
+                            <ImageBrush ImageSource="/alarm_add_96px.png"/>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
             </Grid>
         </Grid>
         <DockPanel MaxWidth="1200" MaxHeight="35px">

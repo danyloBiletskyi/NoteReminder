@@ -9,11 +9,15 @@
 
   <ItemGroup>
     <None Remove="add_512px.png" />
+    <None Remove="alarm_add_96px.png" />
+    <None Remove="delete_trash_512px.png" />
     <None Remove="Plus_480px.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="add_512px.png" />
+    <Resource Include="alarm_add_96px.png" />
+    <Resource Include="delete_trash_512px.png" />
     <Resource Include="Plus_480px.png" />
   </ItemGroup>
 
