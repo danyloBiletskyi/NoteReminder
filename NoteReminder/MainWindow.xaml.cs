@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -23,12 +24,40 @@ namespace NoteReminder
     /// </summary>
     public partial class MainWindow : Window
     {
-        string path = "";
         public MainWindow()
         {
             InitializeComponent();
         }
 
+
+        //Функція для кнопки (додає елемент нагадування при натисканні)
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+            Notifications notification = new Notifications();
+            notificationsList.Items.Add(notification);
+            notificationsList.SelectedItem= notification;
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            notificationsList.Items.Remove(notificationsList.Items[notificationsList.SelectedIndex]); //Не працює якщо багато треба видаляти
+        }
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            notifPropGrid.Children.Clear();
+            this.notificationsList.Items.Clear();
+        }
+
+        private void notificationsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Notifications selectedNotif = notificationsList.SelectedItem as Notifications;
+            if (selectedNotif != null)
+            {
+
+            }
+        }
     }
 
 }

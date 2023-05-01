@@ -23,12 +23,13 @@
             <RowDefinition
                 Height="*"/>
         </Grid.RowDefinitions>
-        <Grid MinHeight="565px" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="800" Grid.Row="1">
+        <Grid MinHeight="565px" VerticalAlignment="Top" HorizontalAlignment="Left" MinWidth="800" Grid.Row="1" Name="gridMainPanel">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MaxWidth="250px" MinWidth="200"/>
                 <ColumnDefinition
                                   Width="*"/>
             </Grid.ColumnDefinitions>
+            <Border BorderThickness="0 0 2 0" BorderBrush="#616161">
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition MaxHeight="40px" MinHeight="30px"/>
@@ -61,145 +62,141 @@
                     </StackPanel>
                 </Border>
                 <DockPanel Grid.Row="1"  Background="#ECECEC" MaxWidth="250" Width="250">
-                    <Button Width="30" BorderThickness="0,0,0,0" DockPanel.Dock="Right" HorizontalAlignment="Right" BorderBrush="#FFECECEC" Margin="3,0,3,0">
+                    <Button Name="addButton" Width="30" BorderThickness="0,0,0,0" DockPanel.Dock="Right" HorizontalAlignment="Right" BorderBrush="#FFECECEC" Margin="3,0,3,0" Click="addButton_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="/alarm_add_96px.png"/>
                         </Button.Background>
                     </Button>
-                    <Button Width="30" BorderThickness="0,0,2,0" DockPanel.Dock="Right" HorizontalAlignment="Right" Foreground="#FFECECEC" BorderBrush="#FFECECEC">
+                    <Button Width="30" BorderThickness="0,0,2,0" DockPanel.Dock="Right" HorizontalAlignment="Right" Foreground="#FFECECEC" BorderBrush="#FFECECEC" Name="deleteButton" Click="deleteButton_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="/delete_trash_512px.png"/>
                         </Button.Background>
                     </Button>
                 </DockPanel>
-                <ListBox Grid.Row="2" MaxWidth="250" Height="auto" x:Name="notificationsList">
+                <ListBox Padding="0" ItemsSource="{Binding Notifications}" Grid.Row="2" MaxWidth="250" Height="auto" x:Name="notificationsList" BorderThickness="0" SelectionChanged="notificationsList_SelectionChanged">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                                <Setter Property="BorderBrush" Value="#616161"/>
+                            </Style></ListBox.ItemContainerStyle>    
                     <ListBox.Resources>
-                        <Style TargetType="CheckBox">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="CheckBox">
-                                        <StackPanel>
-                                            <Grid>
-                                                <Border Width="45"
+                            <Style TargetType="CheckBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="CheckBox">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Border Width="45"
                                                         Height="20"
                                                         Background="LightBlue"
                                                         CornerRadius="10"
                                                         Margin="5,0">
-                                                </Border>
-                                                <Border x:Name="Button"
+                                                    </Border>
+                                                    <Border x:Name="Button"
                                                         Height="25"
                                                         Width="25"
                                                         CornerRadius="12.5"
                                                         HorizontalAlignment="Left">
-                                                    
-                                                </Border>
-                                            </Grid>
-                                            <ContentPresenter x:Name="content"
+
+                                                    </Border>
+                                                </Grid>
+                                                <ContentPresenter x:Name="content"
                                                               Margin="10 0 0 0"
                                                               Content="{TemplateBinding Content}"
                                                               VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                        <ControlTemplate.Resources>
-                                            <Storyboard x:Key="right">
-                                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                            </StackPanel>
+                                            <ControlTemplate.Resources>
+                                                <Storyboard x:Key="right">
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin"
                                                                     Storyboard.TargetName ="Button"
                                                                     Duration="0:0:0:2"
                                                                     From="0,0,0,0"
                                                                     To="28,0,0,0">
-                                                    <ThicknessAnimation.EasingFunction>
-                                                        <CircleEase EasingMode="EaseOut">
-                                                        </CircleEase>
-                                                    </ThicknessAnimation.EasingFunction>
-                                                </ThicknessAnimation>
-                                            </Storyboard>
-                                            <Storyboard x:Key="left">
-                                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                        <ThicknessAnimation.EasingFunction>
+                                                            <CircleEase EasingMode="EaseOut">
+                                                            </CircleEase>
+                                                        </ThicknessAnimation.EasingFunction>
+                                                    </ThicknessAnimation>
+                                                </Storyboard>
+                                                <Storyboard x:Key="left">
+                                                    <ThicknessAnimation Storyboard.TargetProperty="Margin"
                                                                     Storyboard.TargetName ="Button"
                                                                     Duration="0:0:0:2"
                                                                     From="28,0,0,0"
                                                                     To="0,0,0,0">
-                                                    <ThicknessAnimation.EasingFunction>
-                                                        <CircleEase EasingMode="EaseOut">
-                                                        </CircleEase>
-                                                    </ThicknessAnimation.EasingFunction>
-                                                </ThicknessAnimation>
-                                            </Storyboard>
-                                        </ControlTemplate.Resources>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsChecked" Value="False">
-                                                <Trigger.ExitActions>
-                                                    <RemoveStoryboard BeginStoryboardName="leftt">
-                                                    </RemoveStoryboard>
-                                                    <BeginStoryboard Storyboard="{StaticResource right}" x:Name="rightt">
-                                                    </BeginStoryboard>
-                                                </Trigger.ExitActions>
-                                                <Setter TargetName="Button"
+                                                        <ThicknessAnimation.EasingFunction>
+                                                            <CircleEase EasingMode="EaseOut">
+                                                            </CircleEase>
+                                                        </ThicknessAnimation.EasingFunction>
+                                                    </ThicknessAnimation>
+                                                </Storyboard>
+                                            </ControlTemplate.Resources>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsChecked" Value="False">
+                                                    <Trigger.ExitActions>
+                                                        <RemoveStoryboard BeginStoryboardName="leftt">
+                                                        </RemoveStoryboard>
+                                                        <BeginStoryboard Storyboard="{StaticResource right}" x:Name="rightt">
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
+                                                    <Setter TargetName="Button"
                                                         Property="Background"
                                                         Value="#fff9f4f4"></Setter>
-                                            </Trigger>
-                                            <Trigger Property="IsChecked" Value="True">
-                                                <Trigger.ExitActions>
-                                                    <RemoveStoryboard BeginStoryboardName="rightt">
-                                                    </RemoveStoryboard>
-                                                    <BeginStoryboard Storyboard="{StaticResource left}" x:Name="leftt">
-                                                    </BeginStoryboard>
-                                                </Trigger.ExitActions>
-                                                <Setter TargetName="Button"
+                                                </Trigger>
+                                                <Trigger Property="IsChecked" Value="True">
+                                                    <Trigger.ExitActions>
+                                                        <RemoveStoryboard BeginStoryboardName="rightt">
+                                                        </RemoveStoryboard>
+                                                        <BeginStoryboard Storyboard="{StaticResource left}" x:Name="leftt">
+                                                        </BeginStoryboard>
+                                                    </Trigger.ExitActions>
+                                                    <Setter TargetName="Button"
                                                         Property="Background"
                                                         Value="#ff060600"></Setter>
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                        <ControlTemplate x:Key="notifTemplate" TargetType="{x:Type ListBoxItem}">
-                            <Border BorderThickness="0 0 0 1" BorderBrush="#616161">
-                            <StackPanel>
-                                <Grid MinHeight="60" MaxHeight="80">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="60" />
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                            <DataTemplate x:Key="notifTemplate" DataType="{x:Type ListBoxItem}">
+                                <StackPanel Width="250">
+                                    <Grid MinHeight="60" MaxHeight="80" Height="62" Width="250" HorizontalAlignment="Left">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="60" />
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="150"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                        </Grid>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" Foreground="#3A3A3A" VerticalAlignment="Center" Margin="5,0,0,0" x:Name="setTime" Text="00:00"/>
+                                        <TextBlock Grid.Row="0" FontSize="14" Foreground="#3A3A3A" MaxWidth="110" TextAlignment="Left" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Width="110" Name="setTitle"  Text="{Binding Title}"></TextBlock>
+                                        <TextBlock Grid.Row="1" Grid.Column="0"  Width="150" HorizontalAlignment="Left"><Run Text="Estimated time"/></TextBlock>
+                                        <CheckBox Grid.Row="1" Grid.Column="1"
+                                                  HorizontalAlignment="Right"
+                                                  x:Name="chk1"
+                                                  VerticalAlignment="Center"/>
                                     </Grid>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                    </Grid>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" FontSize="24" Foreground="#3A3A3A" VerticalAlignment="Center" Margin="5,0,0,0">22:22</TextBlock>
-                                    <TextBlock Grid.Row="0" FontSize="14" Foreground="#3A3A3A" MaxWidth="110" TextAlignment="Left" TextWrapping="Wrap" TextTrimming="CharacterEllipsis">Make the laundry and clean floor</TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="0"  Width="150" HorizontalAlignment="Left">Estimated time</TextBlock>
-                                    <CheckBox Grid.Row="1" Grid.Column="1"
-                                              HorizontalAlignment="Right"
-                                              x:Name="chk1"
-                                              VerticalAlignment="Center"></CheckBox>
-                                    <!--
-                                    <TextBlock Grid.Row="0" Grid.Column="0" MaxWidth="60" FontSize="24" Foreground="#3A3A3A" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,3">22:22</TextBlock>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Width="150">Title</TextBlock>
-                                    <TextBlock Grid.Row="1" Grid.Column="0"  Width="150">Time left</TextBlock>
-                                    <Button Grid.Row="1" Grid.Column="1">Active</Button>
-                                    -->
-                                </Grid>
-                            </StackPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </ListBox.Resources>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
-                            <Setter Property="Template" Value="{StaticResource notifTemplate}"></Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBoxItem>
-                        <TextBlock Text="My notification text"></TextBlock>
-                    </ListBoxItem>
-                </ListBox>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <StaticResource ResourceKey="notifTemplate"/>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+            </Grid>
+            </Border>
+            <Grid Grid.Column="1" Name="notifPropGrid">
+                
             </Grid>
         </Grid>
         <DockPanel MaxWidth="1200" MaxHeight="35px">
